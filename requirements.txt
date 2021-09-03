@@ -1,0 +1,5 @@
+PyYaml
+starlette
+openapi_core
+requests
+uvicorn

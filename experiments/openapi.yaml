@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  description: TestApp
+  version: 0.1.0
+  title: TestApp
+
+servers:
+  - url: /api/v1
+
+paths:
+
+  /greet:
+    post:
+      summary: greet endpoint
+      description: greet endpoint
+      tags:
+        - Greet
+      operationId: greetPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestRequest"
+        description: >-
+          Test endpoint that greets a person.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestResponse"
+
+
+components:
+  schemas:
+    TestRequest:
+      type: object
+      properties:
+        greeting:
+          type: string
+        person:
+          type: string
+      required:
+        - greeting
+      additionalProperties: false
+
+    TestResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+        time: 
+          type: string
+      required:
+        - message
+      additionalProperties: false
+
+
