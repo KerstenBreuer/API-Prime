@@ -1,5 +1,3 @@
-PyYaml
-starlette
-openapi_core
-requests
-uvicorn
+# The "." states that pip should look at the setup.py
+# for requirements.
+.
