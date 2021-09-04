@@ -1,0 +1,13 @@
+#!/bin/bash
+cd /workspace
+
+# install in edit mode
+# use-feature way of installing packages
+# install with testing dependencies
+pip install \
+    --use-feature=in-tree-build \
+    -e \
+    ".[dev]"
+
+# install pre-commit hooks to git:
+pre-commit install
