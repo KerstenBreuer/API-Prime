@@ -48,12 +48,10 @@ components:
     TestResponse:
       type: object
       properties:
-        message: 
+        message:
           type: string
-        time: 
+        time:
           type: string
       required:
         - message
       additionalProperties: false
-
-

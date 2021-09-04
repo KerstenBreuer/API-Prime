@@ -17,9 +17,9 @@ repos:
       - id: check-added-large-files
       - id: check-ast
       - id: check-json
-        exclude: "devcontainer.json"
+        exclude: devcontainer.json|launch.json
       - id: pretty-format-json
-        exclude: "devcontainer.json"
+        exclude: devcontainer.json|launch.json
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-executables-have-shebangs
