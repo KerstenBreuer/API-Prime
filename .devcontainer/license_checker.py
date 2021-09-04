@@ -57,6 +57,7 @@ EXCLUDE = [
     "requirements.txt",
     ".vscode",
     ".mypy_cache",
+    ".mypy.ini",
     ".pytest_cache",
     "experiments",
 ]
