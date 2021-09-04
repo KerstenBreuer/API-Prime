@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright 2021 Universität Tübingen, DKFZ and EMBL
-# for the German Human Genome-Phenome Archive (GHGA)
+# Copyright 2021 Kersten Henrik Breuer
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
