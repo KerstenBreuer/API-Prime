@@ -16,16 +16,18 @@ from openapi_core import create_spec
 
 
 def get_openapi_spec():
-    with open('./openapi.yaml', 'r') as spec_file:
+    with open("./experiments/openapi.yaml", "r") as spec_file:
         spec_dict = yaml.safe_load(spec_file)
 
     spec = create_spec(spec_dict)
-    
-    return(spec)
+
+    return spec
 
 
-async def starlette_request_to_openapi_request(star_request: Type[Response]) -> OpenAPIRequest:
-    """Converts a starlette Request object to a OpenApiRequest object 
+async def starlette_request_to_openapi_request(
+    star_request: Type[Response],
+) -> OpenAPIRequest:
+    """Converts a starlette Request object to a OpenApiRequest object
     from the openapi_core library."""
 
     return OpenAPIRequest(
@@ -38,7 +40,7 @@ async def starlette_request_to_openapi_request(star_request: Type[Response]) -> 
 
 
 def starlette_response_to_openapi_response(star_response: Request) -> OpenAPIResponse:
-    """Converts a starlette Response object to a OpenApiResponse object 
+    """Converts a starlette Response object to a OpenApiResponse object
     from the openapi_core library."""
 
     return OpenAPIResponse(
@@ -52,7 +54,7 @@ def starlette_response_to_openapi_response(star_response: Request) -> OpenAPIRes
 async def greet(request: Request):
     spec = get_openapi_spec()
 
-    # validate request: 
+    # validate request:
     openapi_request = await starlette_request_to_openapi_request(request)
     request_validator = RequestValidator(spec)
     request_validation = request_validator.validate(openapi_request)
@@ -71,16 +73,12 @@ async def greet(request: Request):
 
 
 routes = [
-    Route('/api/v1/greet', greet, methods=["POST"]),
+    Route("/api/v1/greet", greet, methods=["POST"]),
 ]
 
-app = Starlette(
-    debug=True, 
-    routes=routes
-)
 
-if __name__ == "__main__":    
-    uvicorn.run(
-        app,
-        port=8080
-    )    
+app = Starlette(debug=True, routes=routes)
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, port=8080)
