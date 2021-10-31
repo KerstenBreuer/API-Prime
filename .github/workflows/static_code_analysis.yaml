@@ -3,7 +3,7 @@ name: Static Code Analysis
 on: push
 
 env:
-  MAIN_SRC_DIR: ./api_prime
+  MAIN_SRC_DIR: ./api_primed
 
 jobs:
   static-code-analysis:
@@ -21,7 +21,7 @@ jobs:
       - uses: pre-commit/action@v2.0.3
       - name: mypy
         run: |
-          mypy --show-error-codes --disable-error-code import .
+          mypy --show-error-codes --disable-error-code import "${MAIN_SRC_DIR}"
       - name: pylint
         run: |
           pylint "${MAIN_SRC_DIR}"
