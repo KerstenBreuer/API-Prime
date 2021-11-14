@@ -13,7 +13,6 @@
 			"NODE_VERSION": "lts/*"
 		}
 	},
-
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"python.pythonPath": "/usr/local/bin/python",
@@ -33,9 +32,8 @@
 		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
 		"editor.renderWhitespace": "all",
 		"licenser.license": "AL2",
-		"licenser.author": "Kersten Henrik Breuer",
+		"licenser.author": "Kersten Henrik Breuer (kersten-breuer@outlook.com)",
 	},
-
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python",
@@ -51,13 +49,10 @@
 		"ymotongpoo.licenser",
 		"ms-azuretools.vscode-docker"
 	],
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "dev_install",
-
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
 }

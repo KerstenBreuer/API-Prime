@@ -12,7 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""An ASGI framework for documentation-driven API design (API-first)
-based on OpenAPI 3.0+ and Starlette"""
+"""Uitls for Fixture handling"""
 
-__version__ = "0.1.0"
+import yaml
+
+
+def read_yaml(path: str) -> dict:
+    """Read yaml file and return content as dict."""
+    with open(path, "r") as file_:
+        return yaml.safe_load(file_)
