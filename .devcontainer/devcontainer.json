@@ -31,6 +31,9 @@
 		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
 		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
 		"editor.renderWhitespace": "all",
+		"editor.rulers": [
+			88
+		],
 		"licenser.license": "AL2",
 		"licenser.author": "Kersten Henrik Breuer (kersten-breuer@outlook.com)",
 	},
