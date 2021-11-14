@@ -12,12 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Uitls for Fixture handling"""
+"""Tests the `api_spec` module."""
 
-import yaml
+from api_primed.api_spec import OpenApiSpec
+
+from .fixtures.specs import example_specs
 
 
-def read_yaml(path: str) -> dict:
-    """Read yaml file and return content as dict."""
-    with open(path, "r") as file_:
-        return yaml.safe_load(file_)
+def test_spec_from_yaml_and_json():
+    """Make sure that creating specs from yaml and json yields the same result"""
+    example_spec = example_specs["greet_api"]
+
+    spec_from_json = OpenApiSpec(example_spec["json_path"])
+    spec_from_yaml = OpenApiSpec(example_spec["yaml_path"])
+
+    assert spec_from_json.spec_dict == spec_from_yaml.spec_dict

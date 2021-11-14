@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pylint: skip-file
 
 """This script checks that the license and license headers
 exists and that they are up to date.
@@ -62,7 +63,7 @@ EXCLUDE = [
 ]
 
 # exclude file by file ending from license header check:
-EXCLUDE_ENDINGS = ["json", "pyc", "yaml", "yml"]
+EXCLUDE_ENDINGS = ["json", "pyc", "yaml", "yml", "md"]
 
 # exclude any files with names that match any of the following regex:
 EXCLUDE_PATTERN = [r".*\.egg-info.*", r".*__cache__.*"]
@@ -82,7 +83,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License."""
 
-AUTHOR = """Kersten Henrik Breuer"""
+AUTHOR = """Kersten Henrik Breuer (kersten-breuer@outlook.com)"""
 
 # The path to the License file relative to target dir
 LICENCE_FILE = "LICENSE"
