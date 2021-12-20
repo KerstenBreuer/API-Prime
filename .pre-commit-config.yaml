@@ -52,7 +52,7 @@ repos:
     hooks:
       - id: mypy
         args: [--show-error-codes, --disable-error-code, import]
-        exclude: experiments
+        exclude: experiments|tests|.devcontainer
   - repo: https://github.com/PyCQA/pylint
     rev: "v2.9.3"
     hooks:

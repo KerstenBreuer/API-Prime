@@ -36,4 +36,4 @@ class OpenApiSpec:
         with open(self.spec_path, "r", encoding="utf8") as spec_file:
             self.spec_dict = yaml.safe_load(spec_file)
 
-        self._openapi_core_spec = openapi_core.create_spec(self.spec_dict)
+        self.openapi_core_spec = openapi_core.create_spec(self.spec_dict)

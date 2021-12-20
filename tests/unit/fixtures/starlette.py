@@ -14,6 +14,7 @@
 
 """Fake starlette requests and responses."""
 
+from copy import deepcopy
 from typing import Coroutine
 from dataclasses import dataclass
 
@@ -58,4 +59,9 @@ VALID_STARLETTE_REQUEST = FakeStareletteRequest(
     ),
     cookies={},
     body=body_coroutine_factory(b'{"greeting": "Hello", "person": "world"}'),
+)
+
+INVALID_STARLETTE_REQUEST = deepcopy(VALID_STARLETTE_REQUEST)
+INVALID_STARLETTE_REQUEST.body = body_coroutine_factory(
+    b'{"greeting": 1, "person": "world"}'
 )

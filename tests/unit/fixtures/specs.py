@@ -18,7 +18,7 @@ from . import BASE_DIR
 
 SPECS_DIR = BASE_DIR / "specs"
 
-example_specs = {
+EXAMPLE_SPECS = {
     "greet_api": {
         "json_path": SPECS_DIR / "greet_api.json",
         "yaml_path": SPECS_DIR / "greet_api.yaml",
