@@ -14,7 +14,7 @@
 
 """Main API definition."""
 
-from api_primed.applications import ApiPrimed
+from apiprimed.applications import ApiPrimed
 
 from .spec import spec
 

@@ -14,7 +14,7 @@
 
 """Tests the `api_spec` module."""
 
-from api_primed.api_spec import OpenApiSpec
+from apiprimed.api_spec import OpenApiSpec
 
 from .fixtures.specs import EXAMPLE_SPECS
 

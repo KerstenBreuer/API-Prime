@@ -16,7 +16,7 @@
 
 from pathlib import Path
 
-from api_primed.api_spec import OpenApiSpec
+from apiprimed.api_spec import OpenApiSpec
 
 
 HERE = Path(__file__).parent.resolve()

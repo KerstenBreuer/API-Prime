@@ -17,8 +17,8 @@
 import pytest
 from openapi_core.validation.request.datatypes import OpenAPIRequest
 
-from api_primed.requests import starlette_to_openapi_request, validate_request
-from api_primed.api_spec import OpenApiSpec
+from apiprimed.requests import starlette_to_openapi_request, validate_request
+from apiprimed.api_spec import OpenApiSpec
 from openapi_core.exceptions import OpenAPIError
 
 

@@ -3,7 +3,7 @@ name: Static Code Analysis
 on: push
 
 env:
-  MAIN_SRC_DIR: ./api_primed
+  MAIN_SRC_DIR: ./apiprimed
 
 jobs:
   static-code-analysis:

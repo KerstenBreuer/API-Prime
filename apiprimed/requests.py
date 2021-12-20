@@ -28,7 +28,7 @@ from openapi_core.validation.request.validators import (
 )
 
 
-from api_primed.api_spec import OpenApiSpec
+from apiprimed.api_spec import OpenApiSpec
 
 
 class Request:
