@@ -13,6 +13,8 @@
 # limitations under the License.
 """Examples for OpenAPI specs."""
 
+
+from apiprimed.api_spec import OpenApiSpec
 from . import BASE_DIR
 
 
@@ -22,5 +24,6 @@ EXAMPLE_SPECS = {
     "greet_api": {
         "json_path": SPECS_DIR / "greet_api.json",
         "yaml_path": SPECS_DIR / "greet_api.yaml",
+        "spec": OpenApiSpec(SPECS_DIR / "greet_api.json"),
     }
 }

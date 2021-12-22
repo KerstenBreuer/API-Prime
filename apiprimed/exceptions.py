@@ -12,18 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tests the `api_spec` module."""
-
-from apiprimed.api_spec import OpenApiSpec
-
-from .fixtures.specs import EXAMPLE_SPECS
+"""Exceptions used in library."""
 
 
-def test_spec_from_yaml_and_json():
-    """Make sure that creating specs from yaml and json yields the same result"""
-    example_spec = EXAMPLE_SPECS["greet_api"]
+class ApiPrimedError(Exception):
+    """A generic base error. All Error used in this library inherit from this."""
 
-    spec_from_json = OpenApiSpec(example_spec["json_path"])
-    spec_from_yaml = OpenApiSpec(example_spec["yaml_path"])
+    pass  # pylint: disable=unnecessary-pass
 
-    assert spec_from_json.content == spec_from_yaml.content
+
+class RoutingError(ApiPrimedError):
+    """Thrown when an error occurs during routing. E.g. the specified operation id
+    was not found in the spec."""
+
+    pass  # pylint: disable=unnecessary-pass

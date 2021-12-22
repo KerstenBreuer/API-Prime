@@ -14,75 +14,70 @@
 
 """Request conversion (from Starlette to target format) and spec-based validation."""
 
-from typing import List
+from typing import Dict
+
+from pydantic import BaseModel
 
 from werkzeug.datastructures import Headers
-from starlette.requests import Request as StarletteRequest
+import starlette.requests
 from openapi_core.validation.request.datatypes import (
     OpenAPIRequest as OacRequest,
     RequestParameters as OacRequestParameters,
 )
-from openapi_core.validation.request.validators import (
-    RequestValidator,
-    RequestValidationResult,
-)
+from openapi_core.validation.request.validators import RequestValidator
 
 
 from apiprimed.api_spec import OpenApiSpec
 
 
-class Request:
+class ValidatedRequest(BaseModel):
     """Class containing a request data validated against the OpenAPI spec."""
 
-    def __init__(
-        self, star_request: StarletteRequest, validation_result: RequestValidationResult
-    ):
-        """Initialize class with the original starlette request and the request data
-        validated by openapi_core."""
+    query_params: Dict[str, object]
+    path_params: Dict[str, object]
+    headers: Headers
+    body: Dict[str, object]
+    cookies: Dict[str, object]
 
-        # original starlette request can still be accessed if needed:
-        self.starlette = star_request
+    original_request: object
 
-        # validated data:
-        self.query_params: dict[str, object] = validation_result.parameters.query
-        self.path_params: dict[str, object] = validation_result.parameters.path
-        self.headers: Headers = validation_result.parameters.header
-        self.body: dict[str, object] = validation_result.body
-        self.cookies: dict[str, object] = validation_result.parameters.cookie
-
-        self.errors: List[Exception] = validation_result.errors
+    class Config:
+        "pydantic config"
+        arbitrary_types_allowed = True
 
 
 async def starlette_to_openapi_request(
-    star_request: StarletteRequest,
+    starlette_request: starlette.requests.Request,
 ) -> OacRequest:
     """Converts a starlette Request object to a OpenApiRequest object
     from the openapi_core library."""
 
     werkzeug_headers = Headers()
-    werkzeug_headers.extend(**star_request.headers)
+    werkzeug_headers.extend(**starlette_request.headers)
 
     request_params = OacRequestParameters(
-        query=star_request.query_params,
+        query=starlette_request.query_params,
         header=werkzeug_headers,
-        path=star_request.path_params,
-        cookie=star_request.cookies,
+        path=starlette_request.path_params,
+        cookie=starlette_request.cookies,
     )
 
     return OacRequest(
-        full_url_pattern=str(star_request.url),
-        method=star_request.method.lower(),
+        full_url_pattern=str(starlette_request.url),
+        method=starlette_request.method.lower(),
         parameters=request_params,
-        body=await star_request.body(),
-        mimetype=star_request.headers["content-type"],
+        body=await starlette_request.body(),
+        mimetype=starlette_request.headers["content-type"],
     )
 
 
 async def validate_request(
-    star_request: StarletteRequest, spec: OpenApiSpec, raise_on_error: bool = True
-) -> RequestValidationResult:
+    starlette_request: starlette.requests.Request,
+    *,
+    spec: OpenApiSpec,
+) -> ValidatedRequest:
     """Validate a starlette request"""
-    oac_request = await starlette_to_openapi_request(star_request)
+    oac_request = await starlette_to_openapi_request(starlette_request)
     validator = RequestValidator(spec.openapi_core_spec)
 
     # result contains casted query, header, body, and path params:
@@ -90,7 +85,13 @@ async def validate_request(
     #   - adds defaults if not specified
     validation_result = validator.validate(oac_request)
 
-    if raise_on_error:
-        validation_result.raise_for_errors()
+    validation_result.raise_for_errors()
 
-    return validation_result
+    return ValidatedRequest(
+        query_params=validation_result.parameters.query,
+        path_params=validation_result.parameters.path,
+        headers=validation_result.parameters.header,
+        body=validation_result.body,
+        cookies=validation_result.parameters.cookie,
+        original_request=starlette_request,
+    )

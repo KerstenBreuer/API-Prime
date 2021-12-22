@@ -14,10 +14,20 @@
 
 """This module contains functionalites for handling OpenAPI3 specification"""
 
+from typing import NamedTuple, Optional
+
+
 from pathlib import Path
 
 import yaml
 import openapi_core
+
+
+class RouteInfo(NamedTuple):
+    """A container for information on a route"""
+
+    path: str
+    method: str
 
 
 class OpenApiSpec:
@@ -34,6 +44,18 @@ class OpenApiSpec:
         self.spec_path = spec_path
 
         with open(self.spec_path, "r", encoding="utf8") as spec_file:
-            self.spec_dict = yaml.safe_load(spec_file)
+            self.content = yaml.safe_load(spec_file)
 
-        self.openapi_core_spec = openapi_core.create_spec(self.spec_dict)
+        self.openapi_core_spec = openapi_core.create_spec(self.content)
+
+    def get_route_by_id(self, operation_id: str) -> Optional[RouteInfo]:
+        """
+        Get route infos by specifying the operation ID.
+        Returns None if no route with specified ID is found."""
+
+        for path, methods_dict in self.content["paths"].items():
+            for method, route in methods_dict.items():
+                if "operationId" in route and route["operationId"] == operation_id:
+                    return RouteInfo(path=path, method=method)
+
+        return None

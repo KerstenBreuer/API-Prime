@@ -3,9 +3,9 @@ import yaml
 from openapi_core import create_spec
 
 with open("./openapi.yaml", "r") as spec_file:
-    spec_dict = yaml.safe_load(spec_file)
+    content = yaml.safe_load(spec_file)
 
-spec = create_spec(spec_dict)
+spec = create_spec(content)
 
 
 ## example request:

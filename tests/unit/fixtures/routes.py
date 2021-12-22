@@ -12,18 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tests the `api_spec` module."""
+"""Example route functions."""
 
-from apiprimed.api_spec import OpenApiSpec
+from starlette.responses import JSONResponse
 
-from .fixtures.specs import EXAMPLE_SPECS
+from apiprimed.requests import ValidatedRequest
 
 
-def test_spec_from_yaml_and_json():
-    """Make sure that creating specs from yaml and json yields the same result"""
-    example_spec = EXAMPLE_SPECS["greet_api"]
+def greet_route(request: ValidatedRequest):
+    """An example route function."""
 
-    spec_from_json = OpenApiSpec(example_spec["json_path"])
-    spec_from_yaml = OpenApiSpec(example_spec["yaml_path"])
+    lang = request.path_params["lang"]
 
-    assert spec_from_json.content == spec_from_yaml.content
+    if lang == "en":
+        message = "Hello World"
+    else:
+        message = "Hallo Welt"
+
+    return JSONResponse({"message": message})
