@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright 2021 Kersten Henrik Breuer (kersten-breuer@outlook.com)
+# Copyright 2021 - 2022 Kersten Henrik Breuer (kersten-breuer@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

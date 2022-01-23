@@ -39,8 +39,8 @@
 		"editor.rulers": [
 			88
 		],
-		"licenser.license": "AL2",
-		"licenser.author": "Kersten Henrik Breuer (kersten-breuer@outlook.com)"
+		"licenser.license": "Custom",
+		"licenser.customHeaderFile": "/workspace/.devcontainer/license_header.txt"
 	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
