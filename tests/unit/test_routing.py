@@ -20,8 +20,7 @@ import pytest
 from apiprimed.routing import OpenApiRoute
 from apiprimed.exceptions import RoutingError
 
-from .fixtures.specs import EXAMPLE_SPECS
-from .fixtures.starlette import VALID_STARLETTE_REQUEST
+from .fixtures.specs import EXAMPLE_SPEC
 from .fixtures.routes import greet_route
 from .fixtures.utils import null_context_manager
 
@@ -43,7 +42,7 @@ def test_openapiroute(
 ):
     """Test the `OpenApiRoute` class."""
 
-    spec = EXAMPLE_SPECS["greet_api"]["spec"]
+    spec = EXAMPLE_SPEC["spec"]
 
     cm = (
         null_context_manager()

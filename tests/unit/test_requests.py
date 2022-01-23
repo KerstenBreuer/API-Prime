@@ -27,7 +27,7 @@ from .fixtures.starlette import (
     INVALID_STARLETTE_REQUEST,
     FakeStareletteRequest,
 )
-from .fixtures.specs import EXAMPLE_SPECS
+from .fixtures.specs import EXAMPLE_SPEC
 from .fixtures.utils import null_context_manager
 
 
@@ -53,8 +53,8 @@ async def test_validate_request(
     star_request: FakeStareletteRequest, expect_error: bool
 ):
     """Test the "validate_request" function."""
-    spec = OpenApiSpec(spec_path=EXAMPLE_SPECS["greet_api"]["json_path"])
+    spec = OpenApiSpec(spec_path=EXAMPLE_SPEC["json_path"])
 
     cm = pytest.raises(OpenAPIError) if expect_error else null_context_manager()
     with cm:
-        result = await validate_request(star_request, spec=spec)
+        await validate_request(star_request, spec=spec)

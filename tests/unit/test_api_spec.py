@@ -16,14 +16,12 @@
 
 from apiprimed.api_spec import OpenApiSpec
 
-from .fixtures.specs import EXAMPLE_SPECS
+from .fixtures.specs import EXAMPLE_SPEC
 
 
 def test_spec_from_yaml_and_json():
     """Make sure that creating specs from yaml and json yields the same result"""
-    example_spec = EXAMPLE_SPECS["greet_api"]
-
-    spec_from_json = OpenApiSpec(example_spec["json_path"])
-    spec_from_yaml = OpenApiSpec(example_spec["yaml_path"])
+    spec_from_json = OpenApiSpec(EXAMPLE_SPEC["json_path"])
+    spec_from_yaml = OpenApiSpec(EXAMPLE_SPEC["yaml_path"])
 
     assert spec_from_json.content == spec_from_yaml.content

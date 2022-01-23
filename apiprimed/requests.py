@@ -21,8 +21,8 @@ from pydantic import BaseModel
 from werkzeug.datastructures import Headers
 import starlette.requests
 from openapi_core.validation.request.datatypes import (
-    OpenAPIRequest as OacRequest,
-    RequestParameters as OacRequestParameters,
+    OpenAPIRequest,
+    RequestParameters as OpenAPIRequestParameters,
 )
 from openapi_core.validation.request.validators import RequestValidator
 
@@ -38,8 +38,7 @@ class ValidatedRequest(BaseModel):
     headers: Headers
     body: Dict[str, object]
     cookies: Dict[str, object]
-
-    original_request: object
+    oac_request: OpenAPIRequest
 
     class Config:
         "pydantic config"
@@ -48,21 +47,21 @@ class ValidatedRequest(BaseModel):
 
 async def starlette_to_openapi_request(
     starlette_request: starlette.requests.Request,
-) -> OacRequest:
+) -> OpenAPIRequest:
     """Converts a starlette Request object to a OpenApiRequest object
     from the openapi_core library."""
 
     werkzeug_headers = Headers()
     werkzeug_headers.extend(**starlette_request.headers)
 
-    request_params = OacRequestParameters(
+    request_params = OpenAPIRequestParameters(
         query=starlette_request.query_params,
         header=werkzeug_headers,
         path=starlette_request.path_params,
         cookie=starlette_request.cookies,
     )
 
-    return OacRequest(
+    return OpenAPIRequest(
         full_url_pattern=str(starlette_request.url),
         method=starlette_request.method.lower(),
         parameters=request_params,
@@ -93,5 +92,5 @@ async def validate_request(
         headers=validation_result.parameters.header,
         body=validation_result.body,
         cookies=validation_result.parameters.cookie,
-        original_request=starlette_request,
+        oac_request=oac_request,
     )

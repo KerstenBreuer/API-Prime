@@ -20,10 +20,8 @@ from . import BASE_DIR
 
 SPECS_DIR = BASE_DIR / "specs"
 
-EXAMPLE_SPECS = {
-    "greet_api": {
-        "json_path": SPECS_DIR / "greet_api.json",
-        "yaml_path": SPECS_DIR / "greet_api.yaml",
-        "spec": OpenApiSpec(SPECS_DIR / "greet_api.json"),
-    }
+EXAMPLE_SPEC = {
+    "json_path": SPECS_DIR / "greet_api.json",
+    "yaml_path": SPECS_DIR / "greet_api.yaml",
+    "spec": OpenApiSpec(SPECS_DIR / "greet_api.json"),
 }

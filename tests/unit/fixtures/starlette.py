@@ -17,8 +17,10 @@
 from copy import deepcopy
 from typing import Coroutine
 from dataclasses import dataclass
+from datetime import datetime, timezone
 
 from starlette.datastructures import QueryParams, Headers, URL
+from starlette.responses import JSONResponse
 
 
 @dataclass
@@ -40,6 +42,8 @@ def body_coroutine_factory(body: bytes):
 
     return get_body
 
+
+# example requests and responses:
 
 VALID_STARLETTE_REQUEST = FakeStareletteRequest(
     method="POST",
@@ -64,4 +68,13 @@ VALID_STARLETTE_REQUEST = FakeStareletteRequest(
 INVALID_STARLETTE_REQUEST = deepcopy(VALID_STARLETTE_REQUEST)
 INVALID_STARLETTE_REQUEST.body = body_coroutine_factory(
     b'{"greeting": 1, "person": "world"}'
+)
+
+
+VALID_STARLETTE_RESPONSE = JSONResponse(
+    {"message": "Hello world!", "time": datetime.now(timezone.utc).isoformat()}
+)
+
+INVALID_STARLETTE_RESPONSE = JSONResponse(
+    {"message": 1, "time": datetime.now(timezone.utc).isoformat()}
 )
