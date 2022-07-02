@@ -16,13 +16,10 @@
 
 
 class ApiPrimedError(Exception):
-    """A generic base error. All Error used in this library inherit from this."""
-
-    pass  # pylint: disable=unnecessary-pass
+    """A generic base error. All Error custom errors thrown by the library do inherit
+    from this base."""
 
 
 class RoutingError(ApiPrimedError):
     """Thrown when an error occurs during routing. E.g. the specified operation id
     was not found in the spec."""
-
-    pass  # pylint: disable=unnecessary-pass
