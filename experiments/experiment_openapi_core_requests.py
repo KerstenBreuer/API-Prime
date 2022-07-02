@@ -18,7 +18,7 @@ from openapi_core import create_spec
 from openapi_core.contrib.requests import RequestsOpenAPIRequest
 from openapi_core.validation.request.validators import RequestValidator
 
-with open("./openapi.yaml", "r") as spec_file:
+with open("./openapi.yaml") as spec_file:
     content = yaml.safe_load(spec_file)
 
 spec = create_spec(content)

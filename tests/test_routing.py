@@ -15,7 +15,7 @@
 """Test routing module."""
 
 from contextlib import nullcontext
-from typing import Optional
+from typing import Optional, Type
 
 import pytest
 
@@ -39,11 +39,11 @@ def test_openapiroute(
     operation_id: Optional[str],
     path: Optional[str],
     method: Optional[str],
-    expected_exception: Optional[type[Exception]],
+    expected_exception: Optional[Type[Exception]],
 ):
     """Test the `OpenApiRoute` class."""
 
-    spec = EXAMPLE_SPEC["spec"]
+    spec = EXAMPLE_SPEC.spec
 
     with pytest.raises(expected_exception) if expected_exception else nullcontext():  # type: ignore
         OpenApiRoute(

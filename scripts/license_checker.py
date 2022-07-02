@@ -95,6 +95,11 @@ class UnexpectedBinaryFileError(RuntimeError):
         super().__init__(message)
 
 
+def is_relative_to(*, parent: Path, child: Path):
+    """Checks if the parent path is relative to the child path."""
+    return str(child.absolute()).startswith(str(parent.absolute()))
+
+
 def get_target_files(
     target_dir: Path,
     exclude: List[str] = EXCLUDE,
@@ -126,7 +131,12 @@ def get_target_files(
         file_
         for file_ in all_files
         if not (
-            any([file_.is_relative_to(excl) for excl in exclude_normalized])
+            any(
+                [
+                    is_relative_to(parent=excl, child=file_)
+                    for excl in exclude_normalized
+                ]
+            )
             or any([str(file_).endswith(ending) for ending in exclude_endings])
             or any([re.match(pattern, str(file_)) for pattern in exclude_pattern])
         )
@@ -186,7 +196,7 @@ def get_header(file_path: Path, comment_chars: List[str] = COMMENT_CHARS):
     header_lines: List[str] = []
 
     try:
-        with open(file_path, "r") as file:
+        with open(file_path) as file:
             for line in file:
                 if is_commented_line(
                     line, comment_chars=comment_chars
@@ -348,7 +358,7 @@ def check_license_file(
         print(f'Could not find license file "{str(license_file)}".')
         return False
 
-    with open(license_file, "r") as file_:
+    with open(license_file) as file_:
         license_text = normalized_text(file_.read(), chars_to_trim=comment_chars)
 
     # Extract the copyright notice:
@@ -393,7 +403,7 @@ def run():
     print(f'Working in "{target_dir}"\n')
 
     # get global copyright from .devcontainer/license_header.txt file:
-    with open(GLOBAL_COPYRIGHT_FILE_PATH, "r") as expected_license_header_file:
+    with open(GLOBAL_COPYRIGHT_FILE_PATH) as expected_license_header_file:
         expected_license_header = normalized_text(expected_license_header_file.read())
 
     if args.no_license_file_check:

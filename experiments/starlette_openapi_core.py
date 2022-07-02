@@ -27,7 +27,7 @@ from starlette.routing import Route
 
 
 def get_openapi_spec():
-    with open("./experiments/openapi.yaml", "r") as spec_file:
+    with open("./experiments/openapi.yaml") as spec_file:
         content = yaml.safe_load(spec_file)
 
     spec = create_spec(content)

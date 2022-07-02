@@ -53,7 +53,7 @@ async def test_validate_request(
     star_request: FakeStareletteRequest, expect_error: bool
 ):
     """Test the "validate_request" function."""
-    spec = OpenApiSpec(spec_path=EXAMPLE_SPEC["json_path"])
+    spec = OpenApiSpec(spec_path=EXAMPLE_SPEC.json_path)
 
     with pytest.raises(OpenAPIError) if expect_error else nullcontext():  # type: ignore
         await validate_request(star_request, spec=spec)  # type: ignore

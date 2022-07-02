@@ -14,8 +14,8 @@
 """Examples for OpenAPI specs."""
 
 
+from dataclasses import dataclass
 from pathlib import Path
-from typing import TypedDict
 
 from apiprimed.api_spec import OpenApiSpec
 
@@ -24,16 +24,17 @@ from . import BASE_DIR
 SPECS_DIR = BASE_DIR / "specs"
 
 
-class ExampleSpec(TypedDict):
-    """An data on an example OpenAPI spec."""
+@dataclass
+class ExampleSpec:
+    """Data on an example OpenAPI spec."""
 
     json_path: Path
     yaml_path: Path
     spec: OpenApiSpec
 
 
-EXAMPLE_SPEC: ExampleSpec = {
-    "json_path": SPECS_DIR / "greet_api.json",
-    "yaml_path": SPECS_DIR / "greet_api.yaml",
-    "spec": OpenApiSpec(SPECS_DIR / "greet_api.json"),
-}
+EXAMPLE_SPEC = ExampleSpec(
+    json_path=SPECS_DIR / "greet_api.json",
+    yaml_path=SPECS_DIR / "greet_api.yaml",
+    spec=OpenApiSpec(SPECS_DIR / "greet_api.json"),
+)
