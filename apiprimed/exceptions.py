@@ -14,6 +14,8 @@
 
 """Exceptions used in library."""
 
+from typing import Sequence
+
 
 class ApiPrimedError(Exception):
     """A generic base error. All Error custom errors thrown by the library do inherit
@@ -23,3 +25,31 @@ class ApiPrimedError(Exception):
 class RoutingError(ApiPrimedError):
     """Thrown when an error occurs during routing. E.g. the specified operation id
     was not found in the spec."""
+
+
+class RouteIdentificationError(ValueError, ApiPrimedError):
+    """Thrown when providing not enough information to identify a route."""
+
+    def __init__(self):
+        """Initialize with a suitable message."""
+
+        message = (
+            "Route could not be identified. You must either provide the `operation_id`"
+            + " or a combination of `path` or `method`"
+        )
+        super().__init__(message)
+
+
+class InvalidHttpMethodError(ValueError, ApiPrimedError):
+    """Thrown when providing an str that does not correspond to a supported HTTP
+    Method."""
+
+    def __init__(self, *, method_str: str, expected_values: Sequence[str]):
+        """Initialize with a message based on the invalid method string."""
+
+        message = (
+            f"The provided string ('{method_str}') did not correspond to an HTTP method"
+            + " supported by OpenAPI. Expected one of:"
+            + ",".join(expected_values)
+        )
+        super().__init__(message)
