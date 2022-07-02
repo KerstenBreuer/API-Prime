@@ -14,13 +14,11 @@
 
 """This module contains functionalites for handling OpenAPI3 specification"""
 
+from pathlib import Path
 from typing import NamedTuple, Optional
 
-
-from pathlib import Path
-
-import yaml
 import openapi_core
+import yaml
 
 
 class RouteInfo(NamedTuple):

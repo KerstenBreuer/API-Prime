@@ -11,13 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-"""General test utils"""
-
-from contextlib import contextmanager
+"""Examples for OpenAPI specs."""
 
 
-@contextmanager
-def null_context_manager():
-    """A no-op context manager."""
-    yield None
+from pathlib import Path
+from typing import TypedDict
+
+from apiprimed.api_spec import OpenApiSpec
+
+from . import BASE_DIR
+
+SPECS_DIR = BASE_DIR / "specs"
+
+
+class ExampleSpec(TypedDict):
+    """An data on an example OpenAPI spec."""
+
+    json_path: Path
+    yaml_path: Path
+    spec: OpenApiSpec
+
+
+EXAMPLE_SPEC: ExampleSpec = {
+    "json_path": SPECS_DIR / "greet_api.json",
+    "yaml_path": SPECS_DIR / "greet_api.yaml",
+    "spec": OpenApiSpec(SPECS_DIR / "greet_api.json"),
+}

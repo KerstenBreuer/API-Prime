@@ -12,22 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Type
-
-import yaml
 import uvicorn
-
 import werkzeug.datastructures
-from starlette.applications import Starlette
-from starlette.requests import Request
-from starlette.routing import Route
-from starlette.responses import Response, JSONResponse
-
+import yaml
+from openapi_core import create_spec
 from openapi_core.validation.request.datatypes import OpenAPIRequest, RequestParameters
 from openapi_core.validation.request.validators import RequestValidator
 from openapi_core.validation.response.datatypes import OpenAPIResponse
 from openapi_core.validation.response.validators import ResponseValidator
-from openapi_core import create_spec
+from starlette.applications import Starlette
+from starlette.requests import Request
+from starlette.responses import JSONResponse, Response
+from starlette.routing import Route
 
 
 def get_openapi_spec():

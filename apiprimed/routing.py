@@ -14,13 +14,14 @@
 
 """Extends the routing functionality of Starlette."""
 
-from typing import Optional, Callable
-import starlette.routing
+from typing import Callable, Optional
+
 import starlette.requests
+import starlette.routing
 
 from apiprimed.api_spec import OpenApiSpec
-from apiprimed.requests import validate_request, ValidatedRequest
 from apiprimed.exceptions import RoutingError
+from apiprimed.requests import ValidatedRequest, validate_request
 
 
 def endpoint_wrapper_factory(

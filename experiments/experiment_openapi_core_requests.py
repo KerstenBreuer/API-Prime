@@ -12,20 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import openapi_core
+import requests
 import yaml
 from openapi_core import create_spec
+from openapi_core.contrib.requests import RequestsOpenAPIRequest
+from openapi_core.validation.request.validators import RequestValidator
 
 with open("./openapi.yaml", "r") as spec_file:
     content = yaml.safe_load(spec_file)
 
 spec = create_spec(content)
-
-
-## example request:
-from openapi_core.validation.request.validators import RequestValidator
-from openapi_core.contrib.requests import RequestsOpenAPIRequest
-import requests
 
 request = requests.models.Request(
     method="post",

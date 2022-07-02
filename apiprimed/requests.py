@@ -16,16 +16,14 @@
 
 from typing import Dict
 
-from pydantic import BaseModel
-
-from werkzeug.datastructures import Headers
 import starlette.requests
+from openapi_core.validation.request.datatypes import OpenAPIRequest
 from openapi_core.validation.request.datatypes import (
-    OpenAPIRequest,
     RequestParameters as OpenAPIRequestParameters,
 )
 from openapi_core.validation.request.validators import RequestValidator
-
+from pydantic import BaseModel
+from werkzeug.datastructures import Headers
 
 from apiprimed.api_spec import OpenApiSpec
 

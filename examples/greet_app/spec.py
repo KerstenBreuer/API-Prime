@@ -18,7 +18,6 @@ from pathlib import Path
 
 from apiprimed.api_spec import OpenApiSpec
 
-
 HERE = Path(__file__).parent.resolve()
 
 spec = OpenApiSpec(spec_path=HERE / "openapi.yaml")

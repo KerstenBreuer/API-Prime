@@ -14,23 +14,23 @@
 
 """Tests the `responses` module."""
 
+from contextlib import nullcontext
+
 import pytest
-from openapi_core.validation.response.datatypes import OpenAPIResponse
-from openapi_core.exceptions import OpenAPIError
 import starlette.responses
+from openapi_core.exceptions import OpenAPIError
+from openapi_core.validation.response.datatypes import OpenAPIResponse
 
-from apiprimed.responses import starlette_to_openapi_response, validate_response
-from apiprimed.requests import validate_request
 from apiprimed.api_spec import OpenApiSpec
+from apiprimed.requests import validate_request
+from apiprimed.responses import starlette_to_openapi_response, validate_response
 
-
+from .fixtures.specs import EXAMPLE_SPEC
 from .fixtures.starlette import (
+    INVALID_STARLETTE_RESPONSE,
     VALID_STARLETTE_REQUEST,
     VALID_STARLETTE_RESPONSE,
-    INVALID_STARLETTE_RESPONSE,
 )
-from .fixtures.specs import EXAMPLE_SPEC
-from .fixtures.utils import null_context_manager
 
 
 @pytest.mark.asyncio
@@ -56,10 +56,9 @@ async def test_validate_response(
 ):
     """Test the "validate_response" function."""
     spec = OpenApiSpec(spec_path=EXAMPLE_SPEC["json_path"])
-    request = await validate_request(VALID_STARLETTE_REQUEST, spec=spec)
+    request = await validate_request(VALID_STARLETTE_REQUEST, spec=spec)  # type: ignore
 
-    cm = pytest.raises(OpenAPIError) if expect_error else null_context_manager()
-    with cm:
+    with pytest.raises(OpenAPIError) if expect_error else nullcontext():  # type: ignore
         await validate_response(
             starlette_response=star_response, request=request, spec=spec
         )

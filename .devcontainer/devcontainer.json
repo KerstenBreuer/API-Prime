@@ -1,7 +1,8 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/python-3
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.177.0/containers/python-3-postgres
+// Update the VARIANT arg in docker-compose.yml to pick a Python version: 3, 3.8, 3.7, 3.6
 {
-	"name": "Python 3",
+	"name": "apiprimed",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": ".",
@@ -15,24 +16,22 @@
 	},
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash",
 		"python.pythonPath": "/usr/local/bin/python",
 		"python.languageServer": "Pylance",
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
 		"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
 		"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+		"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
 		"python.formatting.provider": "black",
 		"editor.formatOnSave": true,
-		"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
 		"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-		"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
 		"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
 		"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
 		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
 		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
-		"python.testing.pytestArgs": [
-			"tests"
-		],
+		"python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
 		"python.testing.unittestEnabled": false,
 		"python.testing.pytestEnabled": true,
 		"editor.renderWhitespace": "all",
@@ -46,6 +45,9 @@
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance",
+		"ms-toolsai.jupyter",
+		"mtxr.sqltools",
+		"mtxr.sqltools-driver-pg",
 		"42crunch.vscode-openapi",
 		"eamodio.gitlens",
 		"formulahendry.terminal",
@@ -55,10 +57,11 @@
 		"ms-toolsai.jupyter",
 		"redhat.vscode-yaml",
 		"ymotongpoo.licenser",
-		"ms-azuretools.vscode-docker"
+		"ms-azuretools.vscode-docker",
+		"EditorConfig.EditorConfig"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	// "forwardPorts": [5000, 5432],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "dev_install",
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.

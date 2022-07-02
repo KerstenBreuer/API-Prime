@@ -14,15 +14,16 @@
 
 """Test routing module."""
 
+from contextlib import nullcontext
 from typing import Optional
+
 import pytest
 
-from apiprimed.routing import OpenApiRoute
 from apiprimed.exceptions import RoutingError
+from apiprimed.routing import OpenApiRoute
 
-from .fixtures.specs import EXAMPLE_SPEC
 from .fixtures.routes import greet_route
-from .fixtures.utils import null_context_manager
+from .fixtures.specs import EXAMPLE_SPEC
 
 
 @pytest.mark.parametrize(
@@ -38,18 +39,13 @@ def test_openapiroute(
     operation_id: Optional[str],
     path: Optional[str],
     method: Optional[str],
-    expected_exception: Optional[Exception],
+    expected_exception: Optional[type[Exception]],
 ):
     """Test the `OpenApiRoute` class."""
 
     spec = EXAMPLE_SPEC["spec"]
 
-    cm = (
-        null_context_manager()
-        if expected_exception is None
-        else pytest.raises(expected_exception)
-    )
-    with cm:
+    with pytest.raises(expected_exception) if expected_exception else nullcontext():  # type: ignore
         OpenApiRoute(
             greet_route,
             spec=spec,

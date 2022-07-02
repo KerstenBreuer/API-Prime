@@ -15,11 +15,11 @@
 """Fake starlette requests and responses."""
 
 from copy import deepcopy
-from typing import Coroutine
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from typing import Coroutine
 
-from starlette.datastructures import QueryParams, Headers, URL
+from starlette.datastructures import URL, Headers, QueryParams
 from starlette.responses import JSONResponse
 
 

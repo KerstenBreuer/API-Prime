@@ -14,21 +14,21 @@
 
 """Tests the `requests` module."""
 
+from contextlib import nullcontext
+
 import pytest
+from openapi_core.exceptions import OpenAPIError
 from openapi_core.validation.request.datatypes import OpenAPIRequest
 
-from apiprimed.requests import starlette_to_openapi_request, validate_request
 from apiprimed.api_spec import OpenApiSpec
-from openapi_core.exceptions import OpenAPIError
+from apiprimed.requests import starlette_to_openapi_request, validate_request
 
-
+from .fixtures.specs import EXAMPLE_SPEC
 from .fixtures.starlette import (
-    VALID_STARLETTE_REQUEST,
     INVALID_STARLETTE_REQUEST,
+    VALID_STARLETTE_REQUEST,
     FakeStareletteRequest,
 )
-from .fixtures.specs import EXAMPLE_SPEC
-from .fixtures.utils import null_context_manager
 
 
 @pytest.mark.asyncio
@@ -36,7 +36,7 @@ async def test_starlette_to_openapi_request():
     """Test the `starlette_to_openapi_request` conversion function."""
     starlette_request = VALID_STARLETTE_REQUEST
 
-    openapi_request = await starlette_to_openapi_request(starlette_request)
+    openapi_request = await starlette_to_openapi_request(starlette_request)  # type: ignore
 
     assert isinstance(openapi_request, OpenAPIRequest)
 
@@ -55,6 +55,5 @@ async def test_validate_request(
     """Test the "validate_request" function."""
     spec = OpenApiSpec(spec_path=EXAMPLE_SPEC["json_path"])
 
-    cm = pytest.raises(OpenAPIError) if expect_error else null_context_manager()
-    with cm:
-        await validate_request(star_request, spec=spec)
+    with pytest.raises(OpenAPIError) if expect_error else nullcontext():  # type: ignore
+        await validate_request(star_request, spec=spec)  # type: ignore
