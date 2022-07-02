@@ -22,8 +22,8 @@ import starlette.responses
 from openapi_core.validation.response.datatypes import OpenAPIResponse
 from openapi_core.validation.response.validators import ResponseValidator
 
-from apiprimed.api_spec import OpenApiSpec
 from apiprimed.requests import ValidatedRequest
+from apiprimed.spec import OpenApiSpec
 
 
 async def starlette_to_openapi_response(

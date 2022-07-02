@@ -20,8 +20,8 @@ import pytest
 from openapi_core.exceptions import OpenAPIError
 from openapi_core.validation.request.datatypes import OpenAPIRequest
 
-from apiprimed.api_spec import OpenApiSpec
 from apiprimed.requests import starlette_to_openapi_request, validate_request
+from apiprimed.spec import OpenApiSpec
 
 from .fixtures.specs import EXAMPLE_SPEC
 from .fixtures.starlette import (

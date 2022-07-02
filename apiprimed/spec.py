@@ -46,7 +46,7 @@ class OpenApiSpec:
 
         self.openapi_core_spec = openapi_core.create_spec(self.content)
 
-    def get_route_by_id(self, operation_id: str) -> Optional[RouteInfo]:
+    def get_route_info(self, *, operation_id: str) -> Optional[RouteInfo]:
         """
         Get route infos by specifying the operation ID.
         Returns None if no route with specified ID is found."""

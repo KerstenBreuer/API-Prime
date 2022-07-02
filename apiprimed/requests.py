@@ -25,7 +25,7 @@ from openapi_core.validation.request.validators import RequestValidator
 from pydantic import BaseModel
 from werkzeug.datastructures import Headers
 
-from apiprimed.api_spec import OpenApiSpec
+from apiprimed.spec import OpenApiSpec
 
 
 class ValidatedRequest(BaseModel):

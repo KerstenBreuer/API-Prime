@@ -21,9 +21,9 @@ import starlette.responses
 from openapi_core.exceptions import OpenAPIError
 from openapi_core.validation.response.datatypes import OpenAPIResponse
 
-from apiprimed.api_spec import OpenApiSpec
 from apiprimed.requests import validate_request
 from apiprimed.responses import starlette_to_openapi_response, validate_response
+from apiprimed.spec import OpenApiSpec
 
 from .fixtures.specs import EXAMPLE_SPEC
 from .fixtures.starlette import (

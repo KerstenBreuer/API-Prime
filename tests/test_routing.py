@@ -20,7 +20,7 @@ from typing import Optional, Type
 import pytest
 
 from apiprimed.exceptions import RoutingError
-from apiprimed.routing import OpenApiRoute
+from apiprimed.routes import OpenApiRoute
 
 from .fixtures.routes import greet_route
 from .fixtures.specs import EXAMPLE_SPEC

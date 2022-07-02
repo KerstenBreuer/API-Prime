@@ -19,9 +19,9 @@ from typing import Callable, Optional
 import starlette.requests
 import starlette.routing
 
-from apiprimed.api_spec import OpenApiSpec
 from apiprimed.exceptions import RoutingError
 from apiprimed.requests import ValidatedRequest, validate_request
+from apiprimed.spec import OpenApiSpec
 
 
 def endpoint_wrapper_factory(
@@ -62,7 +62,7 @@ class OpenApiRoute(starlette.routing.Route):
         Either provide an `operation_id` or `path` plus `method`.
         """
         if operation_id is not None:
-            route_info = spec.get_route_by_id(operation_id)
+            route_info = spec.get_route_info(operation_id=operation_id)
             if route_info is None:
                 raise RoutingError(
                     f"No endpoint found with operation ID '{operation_id}'."

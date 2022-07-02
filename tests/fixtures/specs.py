@@ -17,7 +17,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from apiprimed.api_spec import OpenApiSpec
+from apiprimed.spec import OpenApiSpec
 
 from . import BASE_DIR
 
